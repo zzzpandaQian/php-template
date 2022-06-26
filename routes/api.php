@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\NewsTagController;
 use App\Http\Controllers\Api\NewsCategoryController;
+use App\Http\Controllers\Api\VersionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -123,4 +125,10 @@ Route::namespace('Api')->group(function () {
     // 页面
     Route::get('/page/{permalink}', [PageController::class, 'index']);
     Route::get('/test', [TestController::class, 'index']);
+
+    // 获取版本信息
+    Route::get('/version/get', [VersionController::class, 'get_version']);
+
+    // 获取所有版本
+    Route::get('/version/get_all', [VersionController::class, 'get_all_version']);
 });

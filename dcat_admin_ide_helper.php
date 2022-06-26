@@ -81,6 +81,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection oauth_scope
      * @property Grid\Column|Collection nickname
      * @property Grid\Column|Collection birth
+     * @property Grid\Column|Collection disabled
      *
      * @method Grid\Column|Collection order(string $label = null)
      * @method Grid\Column|Collection parent_id(string $label = null)
@@ -152,6 +153,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection oauth_scope(string $label = null)
      * @method Grid\Column|Collection nickname(string $label = null)
      * @method Grid\Column|Collection birth(string $label = null)
+     * @method Grid\Column|Collection disabled(string $label = null)
      */
     class Grid {}
 
@@ -228,6 +230,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection oauth_scope
      * @property Show\Field|Collection nickname
      * @property Show\Field|Collection birth
+     * @property Show\Field|Collection disabled
      *
      * @method Show\Field|Collection order(string $label = null)
      * @method Show\Field|Collection parent_id(string $label = null)
@@ -299,6 +302,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection oauth_scope(string $label = null)
      * @method Show\Field|Collection nickname(string $label = null)
      * @method Show\Field|Collection birth(string $label = null)
+     * @method Show\Field|Collection disabled(string $label = null)
      */
     class Show {}
 

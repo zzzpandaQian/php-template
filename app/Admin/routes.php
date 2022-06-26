@@ -20,5 +20,7 @@ Route::group([
     $router->resource('news-tags', 'NewsTagController');
     $router->resource('sliders', 'SliderController');
     $router->resource('users-with-pwd', 'UsersWithPwdController');
+    $router->resource('version', 'VersionController');
+
     $router->get('statistic-recommends', [StatisticController::class, 'recommend']);
 });
