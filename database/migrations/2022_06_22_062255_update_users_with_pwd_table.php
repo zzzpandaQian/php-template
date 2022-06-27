@@ -14,7 +14,9 @@ class UpdateUsersWithPwdTable extends Migration
     public function up()
     {
         Schema::table('users_with_pwd', function (Blueprint $table) {
-
+            $table->text('avatar')->comment('头像')->nullable();
+            $table->string('nickname', 18)->nullable()->default('用户'.time())->change();
+            $table->rememberToken();
             // $table->tinyInteger('user_id', 3)->change();
             $table->date('birth')->comment('生日')->nullable();
         });
