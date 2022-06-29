@@ -20,7 +20,7 @@ class UserController extends AdminController
     {
         return Grid::make(new User(), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('name');
+            $grid->column('nickname');
             $grid->column('mobile');
             $grid->column('email');
             $grid->column('status')->using(NewsCategory::$activeMap)->badge(NewsCategory::$statusColor);
@@ -59,6 +59,8 @@ class UserController extends AdminController
             $show->field('birthdate');
             $show->field('avatar')->image();
             $show->field('address');
+            $show->field('nickname');
+            $show->field('language')->using(['zh'=>'中文','en'=>'英文']);
             $show->field('wx_nickname');
             $show->field('wx_avatar')->image();
             $show->field('wx_openid');
@@ -86,6 +88,8 @@ class UserController extends AdminController
             $form->date('birthdate');
             $form->image('avatar')->autoUpload();
             $form->text('address');
+            $form->display('nickname');
+            $form->select('language', '语言')->options(['zh'=>'中文','en'=>'英文']);
             $form->display('wx_nickname');
             $form->display('wx_avatar');
             $form->display('wx_openid');

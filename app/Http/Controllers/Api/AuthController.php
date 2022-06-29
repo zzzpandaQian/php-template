@@ -42,7 +42,7 @@ class AuthController extends ApiController
     public function test()
     {
         $user = User::first();
-        if($user){
+        if ($user) {
             $token = $user->createToken('token-name');
             return Response::success([
                 'user'  => new UserResource($user),
@@ -193,7 +193,7 @@ class AuthController extends ApiController
             }
         }
 
-        if($user){
+        if ($user) {
             $token = $user->createToken('token-name');
             return Response::success([
                 'session_info' => $result,
@@ -254,7 +254,7 @@ class AuthController extends ApiController
         $fields['mobile'] = $mobile;
         if ($user) {
             $user->update($fields);
-        }else{
+        } else {
             $fields['name']       = $request->input('userInfo.nickName');
             $fields['avatar']     = $request->input('userInfo.avatarUrl');
             $fields['xcx_openid'] = $openid;
@@ -295,13 +295,13 @@ class AuthController extends ApiController
         $user = User::where('wx_openid', $openid)->first();
         if ($user) {
             // 存在用户则更新用户信息
-            if(isset($result['token_response']) && $result['token_response']['scope'] == 'snsapi_base'){
+            if (isset($result['token_response']) && $result['token_response']['scope'] == 'snsapi_base') {
                 // 静默授权
-                if(!$user->oauth_scope){
+                if (!$user->oauth_scope) {
                     // 不存在授权类型就更新
                     $fields['oauth_scope'] = 1;
                 }
-            }else{
+            } else {
                 // 用户信息授权
                 $fields['oauth_scope'] = 2;
                 $fields['wx_nickname'] = $result->getName();
@@ -309,15 +309,15 @@ class AuthController extends ApiController
                 $fields['wx_avatar']   = $result->getAvatar();
             }
             $user->update($fields);
-        }else{
+        } else {
             // 不存在用户
 
             // 判断授权方式设定对应字段
-            if(isset($result['token_response']) && $result['token_response']['scope'] == 'snsapi_base'){
+            if (isset($result['token_response']) && $result['token_response']['scope'] == 'snsapi_base') {
                 // 静默授权
                 $fields['name'] = '';
                 $fields['oauth_scope'] = 1;
-            }else{
+            } else {
                 // 用户信息授权
                 $fields['oauth_scope'] = 2;
                 $fields['name']       = $result->getName();
@@ -341,7 +341,7 @@ class AuthController extends ApiController
                 $user = User::create($fields);
             }
         }
-        if($user){
+        if ($user) {
             $token = $user->createToken('token-name');
             return Response::success([
                 'user'  => new UserResource($user),
@@ -351,7 +351,7 @@ class AuthController extends ApiController
         }
     }
 
-     /**
+    /**
      * 微信绑定手机
      *
      * @return void
@@ -378,7 +378,7 @@ class AuthController extends ApiController
         $wx_openid = $request->input('openid');
         $mobile    = $request->input('mobile');
         $fields = [];
-        if($request->userInfo){
+        if ($request->userInfo) {
             $fields['oauth_scope'] = $request->userInfo['oauth_scope'];
             $fields['wx_nickname'] = $request->userInfo['wx_nickname'];
             $fields['gender'] = $request->userInfo['gender'];
@@ -390,7 +390,7 @@ class AuthController extends ApiController
         $fields['mobile']    = $mobile;
         if ($user) {
             $user->update($fields);
-        }else{
+        } else {
             $fields['name']      = $request->userInfo['name'];
             $fields['avatar']    = $request->userInfo['avatar'];
             $fields['wx_openid'] = $wx_openid;

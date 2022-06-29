@@ -26,6 +26,8 @@ class User extends Authenticatable
         'gender',
         'birthdate',
         'avatar',
+        'language',
+        'nickname',
         'address',
         'wx_nickname',
         'wx_avatar',

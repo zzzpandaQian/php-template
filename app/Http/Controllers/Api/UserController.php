@@ -71,4 +71,19 @@ class UserController extends ApiController
         user::find($user->id)->delete();
         return Response::ok('注销成功');
     }
+
+    /**
+     * 更改用户语言
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function changeLanguage(Request $request)
+    {
+        $user = $request->user();
+        // $inputs = $request->all();
+        $language = $request->language;
+        User::where('id', $user->id)->update(['language'=>$language]);
+        return Response::ok('修改成功');
+    }
 }

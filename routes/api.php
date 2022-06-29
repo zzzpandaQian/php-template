@@ -76,6 +76,10 @@ Route::namespace('Api')->group(function () {
 
             // 用户删除
             Route::get('delete', [UserController::class, 'delete']);
+
+            // 用户修改语言
+            Route::post('language', [UserController::class, 'changeLanguage']);
+
         });
 
     });
