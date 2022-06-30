@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\VersionController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::namespace('Api')->group(function () {
 
     /*
@@ -79,10 +80,16 @@ Route::namespace('Api')->group(function () {
 
             // 用户修改语言
             Route::post('language', [UserController::class, 'changeLanguage']);
-
         });
-
     });
+    // 校验用户名
+    Route::get('/user/validate/name', [UserController::class, 'validateName']);
+
+    // 用户注册
+    Route::post('/user/register', [UserController::class, 'register']);
+
+    // 用户登录
+    Route::post('/user/login', [UserController::class, 'login']);
 
     // jssdk
     Route::get('jssdk', [AuthController::class, 'jssdk']);

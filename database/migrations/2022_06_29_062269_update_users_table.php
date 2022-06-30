@@ -14,8 +14,9 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('language')->default('zh')->index();
-            $table->string('nickname', 18)->default('用户名'.time());
+            $table->string('language')->nullable()->default('zh')->index();
+            $table->string('nickname', 18)->nullable();
+
         });
     }
 

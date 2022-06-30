@@ -83,7 +83,57 @@ class UserController extends ApiController
         $user = $request->user();
         // $inputs = $request->all();
         $language = $request->language;
-        User::where('id', $user->id)->update(['language'=>$language]);
+        User::where('id', $user->id)->update(['language' => $language]);
         return Response::ok('修改成功');
+    }
+
+    /**
+     * 昵称校验
+     */
+    public function validateName(Request $request)
+    {
+        $name = $request->name;
+        if (User::where('name', $name)->first()) {
+            return Response::ok('用户已存在');
+        } else {
+            return Response::ok('用户不存在');
+        }
+    }
+
+    /**
+     * 用户注册
+     */
+    public function register(Request $request)
+    {
+        $inputs = $request->all();
+        if (User::where('name', $inputs['name'])->first()) {
+            return response::ok('用户已存在', 203);
+        } else {
+            $inputs['password'] = md5($inputs['password']);
+            $inputs['nickname'] = '用户名' . time();
+            $inputs['status'] = 1;
+            $user = User::create($inputs);
+            return Response::success($user, '注册成功');
+        }
+    }
+    /**
+     * 用户登录
+     */
+    public function login(Request $request)
+    {
+        $name = $request->name;
+        $password = md5($request->password);
+        $user = User::where('name', $name)->first();
+        if (!$user || $password !== $user->password) {
+            Response::errorBadRequest('用户或密码不正确');
+        }
+        if ($user->status === 0) {
+            Response::errorBadRequest('用户未激活');
+        }
+        $token = $user->createToken('token-name');
+        return Response::success([
+            'user' => new UserResource($user),
+            'token' => $token->plainTextToken
+        ], '登陆成功');
     }
 }
