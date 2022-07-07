@@ -131,6 +131,9 @@ class UserController extends ApiController
             Response::errorBadRequest('用户未激活');
         }
         $token = $user->createToken('token-name');
+        if(!$user->avatar){
+            $user['avatar'] = \Storage::disk('public')->url('images/default-avatar.jpg');
+        }
         return Response::success([
             'user' => new UserResource($user),
             'token' => $token->plainTextToken
